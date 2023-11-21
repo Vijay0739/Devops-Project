@@ -3,77 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>3D Student Login</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: #f0f0f0;
+            perspective: 800px;
+            background-color: #3498db;
         }
 
         .login-container {
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+            animation: rotate 5s infinite linear;
         }
 
-        .login-form {
-            padding: 20px;
+        .cube {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transform: translateZ(-100px);
+        }
+
+        .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
-        h1 {
-            text-align: center;
-            color: #333;
+        .front {
+            transform: translateZ(100px);
         }
 
-        label {
-            margin-top: 10px;
+        .back {
+            transform: rotateY(180deg) translateZ(100px);
+        }
+
+        .left {
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+
+        .right {
+            transform: rotateY(90deg) translateZ(100px);
+        }
+
+        .top {
+            transform: rotateX(90deg) translateZ(100px);
+        }
+
+        .bottom {
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
             color: #555;
         }
 
-        input {
-            padding: 10px;
-            margin: 5px 0 15px 0;
+        .input-group input {
+            width: 80%;
+            padding: 8px;
+            box-sizing: border-box;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 3px;
         }
 
-        button {
-            background-color: #4caf50;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .login-btn {
+            background-color: #2ecc71;
+            color: white;
+            padding: 10px 20px;
             font-size: 16px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
         }
 
-        button:hover {
-            background-color: #45a049;
+        .login-btn:hover {
+            background-color: #27ae60;
+        }
+
+        @keyframes rotate {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <form class="login-form">
-            <h1>Login</h1>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-
-            <button type="submit">Login</button>
-        </form>
+        <div class="cube">
+            <div class="face front">
+                <h2>Student Login</h2>
+                <div class="input-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" placeholder="Enter your username">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" placeholder="Enter your password">
+                </div>
+                <button class="login-btn" onclick="login()">Login</button>
+            </div>
+            <div class="face back"></div>
+            <div class="face left"></div>
+            <div class="face right"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+        </div>
     </div>
+
+    <script>
+        function login() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username === 'student' && password === 'password') {
+                alert('Login successful! Welcome, ' + username + '!');
+            } else {
+                alert('Login failed. Please check your username and password.');
+            }
+        }
+    </script>
 </body>
 </html>
 

@@ -3,144 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Student Login</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            perspective: 800px;
-            background-color: #3498db;
-        }
-
-        .login-container {
-            width: 200px;
-            height: 200px;
-            transform-style: preserve-3d;
-            animation: rotate 5s infinite linear;
-        }
-
-        .cube {
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transform: translateZ(-100px);
-        }
-
-        .face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .front {
-            transform: translateZ(100px);
-        }
-
-        .back {
-            transform: rotateY(180deg) translateZ(100px);
-        }
-
-        .left {
-            transform: rotateY(-90deg) translateZ(100px);
-        }
-
-        .right {
-            transform: rotateY(90deg) translateZ(100px);
-        }
-
-        .top {
-            transform: rotateX(90deg) translateZ(100px);
-        }
-
-        .bottom {
-            transform: rotateX(-90deg) translateZ(100px);
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        .input-group input {
-            width: 80%;
-            padding: 8px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        .login-btn {
-            background-color: #2ecc71;
-            color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        .login-btn:hover {
-            background-color: #27ae60;
-        }
-
-        @keyframes rotate {
-            from { transform: rotateY(0deg); }
-            to { transform: rotateY(360deg); }
-        }
-    </style>
+    <title>Stopwatch</title>
+    <link rel="stylesheet" href="Stopwatch.css">
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.container{
+    background-color: #222242;
+    height: 100vh;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+}
+.wrapper{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.wrapper p{
+    position: relative;
+    display: inline-block;
+    color: #ffffff;
+    z-index: 9999;
+    font-size: 48px;
+    margin-bottom: 120px;
+}
+.wrapper p::before{
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-color: #151538;
+    z-index: -1;
+    border-radius: 50%;
+	left: -10%;
+    top: -118%;
+    animation-name: shine;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+@keyframes shine{
+    0%,100%{
+        box-shadow: 0px 0px 32px -12px rgba(246, 180, 0, .5);
+    }
+    50%{
+        box-shadow: 0px 0px 32px 3px rgba(246, 180, 0, .5);
+    }
+}
+button{
+    background-color: #222242;
+    padding: 10px 38px;
+    border: 1px solid #A9A9A9;
+    border-radius: 28px;
+    color: #fff;
+    transition: all .2s ease;
+    outline: 0;
+}
+button:not(:last-child){
+    margin-right: 20px;
+}
+button:hover,
+button:focus
+{
+    border-color: #F6B400;
+    color: #F6B400;
+    box-shadow: 0px 4px 27px -12px #F6B400;
+}
+</style>
 <body>
-    <div class="login-container">
-        <div class="cube">
-            <div class="face front">
-                <h2>Student Login</h2>
-                <div class="input-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" placeholder="Enter your username">
-                </div>
-                <div class="input-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" placeholder="Enter your password">
-                </div>
-                <button class="login-btn" onclick="login()">Login</button>
-            </div>
-            <div class="face back"></div>
-            <div class="face left"></div>
-            <div class="face right"></div>
-            <div class="face top"></div>
-            <div class="face bottom"></div>
+    <div class="container">
+        <div class="wrapper">
+            <p>
+                <span class="mins">00</span>:<span class="seconds">00</span>:<span class="tens">00</span>
+            </p> <br>
+            <button class="btn-start">Start</button>
+            <button class="btn-stop">Stop</button>
+            <button class="btn-reset">Reset</button>
         </div>
     </div>
 
-    <script>
-        function login() {
-            var username = document.getElementById('username').value;
-            var password = document.getElementById('password').value;
 
-            if (username === 'student' && password === 'password') {
-                alert('Login successful! Welcome, ' + username + '!');
-            } else {
-                alert('Login failed. Please check your username and password.');
-            }
-        }
+
+
+    <script >
+let seconds = 0;
+let tens = 0;
+let mins = 0;
+let getSeconds = document.querySelector('.seconds');
+let getTens = document.querySelector('.tens');
+let getMins = document.querySelector('.mins');
+let btnStart = document.querySelector('.btn-start');
+let btnStop = document.querySelector('.btn-stop');
+let btnReset = document.querySelector('.btn-reset');
+let interval;
+
+btnStart.addEventListener('click', () => {
+    clearInterval(interval);
+    inverval = setInterval(startTimer, 10);
+})
+btnStop.addEventListener('click', () => {
+    clearInterval(inverval);
+})
+btnReset.addEventListener('click', () => {
+    clearInterval(inverval);
+    tens = '00';
+    seconds = '00';
+    mins = '00';
+    getSeconds.innerHTML = seconds;
+    getTens.innerHTML = tens;
+    getMins.innerHTML = mins;
+})
+
+function startTimer(){
+    tens++;
+    if(tens <= 9){
+        getTens.innerHTML = '0' + tens;
+    }
+    if(tens > 9){
+        getTens.innerHTML = tens;
+    }
+    if(tens > 99){
+        seconds++;
+        getSeconds.innerHTML = '0' + seconds;
+        tens = 0;
+        getTens.innerHTML = '0' + 0;
+    }
+    if(seconds > 9){
+        getSeconds.innerHTML = seconds;
+    }
+    if(seconds > 59){
+        mins++;
+        getMins.innerHTML = '0' + mins;
+        seconds = 0;
+        getSeconds.innerHTML = '0' + 0;
+    }
+    if(mins > 9){
+        getSeconds.innerHTML = mins;
+    }
+}
     </script>
 </body>
 </html>
-

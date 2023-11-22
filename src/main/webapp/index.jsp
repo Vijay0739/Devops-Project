@@ -116,7 +116,7 @@
                     <input type="text" id="username" placeholder="Enter your username">
                 </div>
                 <div class="input-group">
-                    <label for="password">Password:</label>
+                    <label for="password">Password:::::</label>
                     <input type="password" id="password" placeholder="Enter your password">
                 </div>
                 <button class="login-btn" onclick="login()">Login</button>
